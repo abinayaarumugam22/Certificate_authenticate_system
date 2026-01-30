@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Welcome Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h2><i class="fas fa-user-graduate"></i> Welcome, {{ student.name }}!</h2>
+                    <p class="mb-0">Student ID: {{ student.student_id }} | Email: {{ student.email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Certificates Section -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0"><i class="fas fa-certificate"></i> My Certificates</h5>
+        </div>
+        <div class="card-body">
+            {% if certificates %}
+<div class="row">
+    {% for cert in certificates %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card certificate-card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="cert-icon mb-3">
+                    {% if cert.certificate_type == '10th' %}
+                        <i class="fas fa-school fa-4x text-primary"></i>
+                    {% elif cert.certificate_type == '12th' %}
+                        <i class="fas fa-graduation-cap fa-4x text-info"></i>
+                    {% else %}
+                        <i class="fas fa-user-graduate fa-4x text-success"></i>
+                    {% endif %}
+                </div>
+                <h5 class="card-title fw-bold">{{ cert.certificate_type }} Certificate</h5>
+                <p class="text-muted small mb-1">{{ cert.certificate_id }}</p>
+                <p class="small mb-1">
+                    <strong>Institution:</strong><br>
+                    {{ cert.institution.institution_name }}
+                </p>
+                <p class="small text-muted mb-3">
+                    <i class="fas fa-calendar"></i> 
+                    Issued: {{ cert.issue_date.strftime('%d %b %Y') }}
+                </p>
+                
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('view_certificate', cert_id=cert.id) }}" 
+                       class="btn btn-primary btn-sm" target="_blank">
+                        <i class="fas fa-eye"></i> View Certificate
+                    </a>
+                    <a href="{{ url_for('download_certificate', cert_id=cert.id) }}" 
+                       class="btn btn-success btn-sm">
+                        <i class="fas fa-download"></i> Download PDF
+                    </a>
+                    <button class="btn btn-outline-secondary btn-sm" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#qrModal{{ cert.id }}">
+                        <i class="fas fa-qrcode"></i> Show QR Code
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- QR Code Modal for this certificate -->
+    <div class="modal fade" id="qrModal{{ cert.id }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-qrcode"></i> Certificate QR Code
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" 
+                            data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="{{ url_for('view_qr', cert_id=cert.id) }}" 
+                         alt="QR Code" class="img-fluid mb-3" 
+                         style="max-width: 300px;">
+                    <p class="small text-muted">
+                        Scan this QR code to verify certificate authenticity
+                    </p>
+                    <p class="small">
+                        <strong>Certificate ID:</strong><br>
+                        {{ cert.certificate_id }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-5 text-muted">
+    <i class="fas fa-inbox fa-4x mb-3"></i>
+    <h5>No Certificates Available</h5>
+    <p>Your institution will upload your certificates soon.</p>
+</div>
+{% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

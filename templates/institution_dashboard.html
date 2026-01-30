@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}Institution Dashboard{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Welcome Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h2><i class="fas fa-university"></i> {{ institution.institution_name }}</h2>
+                    <p class="mb-0">Type: {{ institution.institution_type }} | Email: {{ institution.email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <button class="btn btn-success w-100 py-3" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                <i class="fas fa-upload fa-2x d-block mb-2"></i>
+                Upload Student Data
+            </button>
+        </div>
+        <div class="col-md-4 mb-3">
+            <button class="btn btn-info w-100 py-3">
+                <i class="fas fa-file-pdf fa-2x d-block mb-2"></i>
+                Generate Certificates
+            </button>
+        </div>
+        <div class="col-md-4 mb-3">
+            <button class="btn btn-warning w-100 py-3">
+                <i class="fas fa-list fa-2x d-block mb-2"></i>
+                View All Certificates
+            </button>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h1 class="text-primary">{{ certificates|length }}</h1>
+                    <p class="mb-0">Total Certificates</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h1 class="text-success">Active</h1>
+                    <p class="mb-0">System Status</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h1 class="text-info">100%</h1>
+                    <p class="mb-0">Verified</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Certificates Table -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0"><i class="fas fa-certificate"></i> Recent Certificates</h5>
+        </div>
+        <div class="card-body">
+            {% if certificates %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Certificate ID</th>
+                            <th>Type</th>
+                            <th>Issue Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                  <tbody>
+    {% for cert in certificates %}
+    <tr>
+        <td>{{ cert.certificate_id }}</td>
+        <td><span class="badge bg-info">{{ cert.certificate_type }}</span></td>
+        <td>{{ cert.issue_date.strftime('%Y-%m-%d') }}</td>
+        <td><span class="badge bg-success">{{ cert.status }}</span></td>
+        <td>
+            <div class="btn-group btn-group-sm" role="group">
+                <a href="{{ url_for('view_certificate', cert_id=cert.id) }}" 
+                   class="btn btn-primary" target="_blank" title="View PDF">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="{{ url_for('download_certificate', cert_id=cert.id) }}" 
+                   class="btn btn-success" title="Download PDF">
+                    <i class="fas fa-download"></i>
+                </a>
+                <a href="{{ url_for('view_qr', cert_id=cert.id) }}" 
+                   class="btn btn-warning" target="_blank" title="View QR Code">
+                    <i class="fas fa-qrcode"></i>
+                </a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5 text-muted">
+                <i class="fas fa-inbox fa-3x mb-3"></i>
+                <p>No certificates generated yet. Upload student data to begin.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Upload Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title"><i class="fas fa-upload"></i> Upload Student Data</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload_certificates') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Certificate Type</label>
+                        <select name="cert_type" class="form-select" required>
+                            <option value="">-- Select Type --</option>
+                            <option value="10th">10th Standard</option>
+                            <option value="12th">12th Standard</option>
+                            <option value="Degree">Degree</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Upload Excel File</label>
+                        <input type="file" name="file" class="form-control" accept=".xlsx,.csv" required>
+                        <small class="text-muted">Accepted formats: .xlsx, .csv</small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-upload"></i> Upload & Generate
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

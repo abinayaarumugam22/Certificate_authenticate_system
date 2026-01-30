@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Login{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white text-center py-4">
+                    <i class="fas fa-user-graduate fa-3x mb-2"></i>
+                    <h3 class="mb-0">Student Login</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('student_login') }}">
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-envelope"></i> Email Address
+                            </label>
+                            <input type="email" name="email" class="form-control" required 
+                                   placeholder="student@example.com">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <input type="password" name="password" class="form-control" required 
+                                   placeholder="Enter password">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success w-100 py-2">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </form>
+                    
+                    <hr class="my-4">
+
+<div class="text-center">
+    <p class="mb-2">
+        <i class="fas fa-info-circle text-info"></i> 
+        Don't have an account?
+    </p>
+    <a href="{{ url_for('student_register') }}" class="btn btn-outline-success">
+        <i class="fas fa-user-plus"></i> Register as Student
+    </a>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

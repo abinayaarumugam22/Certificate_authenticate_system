@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Certificate Validator{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section text-white py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold mb-4">
+            <i class="fas fa-shield-alt"></i> Academic Certificate Validator
+        </h1>
+        <p class="lead mb-4">Secure Digital Verification Using AI and Blockchain Technology</p>
+        <p class="fs-5 mb-5">Generate, Store, and Verify Academic Certificates with Confidence</p>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container my-5">
+    <h2 class="text-center mb-5 fw-bold">System Features</h2>
+    
+    <div class="row g-4">
+        <!-- Institution Card -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-primary text-white mb-3 mx-auto">
+                        <i class="fas fa-university fa-3x"></i>
+                    </div>
+                    <h4 class="card-title mb-3">For Institutions</h4>
+                    <p class="card-text text-muted mb-4">
+                        Generate secure digital certificates for your students with cryptographic hash and QR codes.
+                    </p>
+                    <a href="{{ url_for('institution_login') }}" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Institution Login
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Card -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-success text-white mb-3 mx-auto">
+                        <i class="fas fa-user-graduate fa-3x"></i>
+                    </div>
+                    <h4 class="card-title mb-3">For Students</h4>
+                    <p class="card-text text-muted mb-4">
+                        Access and download your verified academic certificates anytime, anywhere - like DigiLocker.
+                    </p>
+                    <a href="{{ url_for('student_login') }}" class="btn btn-success">
+                        <i class="fas fa-sign-in-alt"></i> Student Login
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Verifier Card -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-warning text-white mb-3 mx-auto">
+                        <i class="fas fa-check-circle fa-3x"></i>
+                    </div>
+                    <h4 class="card-title mb-3">For Verifiers</h4>
+                    <p class="card-text text-muted mb-4">
+                        Verify certificate authenticity instantly with AI-powered tamper detection system.
+                    </p>
+                    <a href="{{ url_for('verifier_dashboard') }}" class="btn btn-warning">
+                        <i class="fas fa-search"></i> Verify Certificate
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="bg-light py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold">How It Works</h2>
+        
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <i class="fas fa-upload fa-3x text-primary mb-3"></i>
+                    <h5>Upload Data</h5>
+                    <p class="text-muted">Institution uploads student data</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <i class="fas fa-file-pdf fa-3x text-success mb-3"></i>
+                    <h5>Generate Certificate</h5>
+                    <p class="text-muted">System creates secure PDF with hash</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <i class="fas fa-download fa-3x text-info mb-3"></i>
+                    <h5>Student Downloads</h5>
+                    <p class="text-muted">Student accesses certificates</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <i class="fas fa-shield-alt fa-3x text-danger mb-3"></i>
+                    <h5>Verify Authenticity</h5>
+                    <p class="text-muted">AI detects any tampering</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="container my-5">
+    <div class="row text-center">
+        <div class="col-md-3 mb-3">
+            <div class="stat-box">
+                <h2 class="display-4 fw-bold text-primary">100%</h2>
+                <p class="text-muted">Secure</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-box">
+                <h2 class="display-4 fw-bold text-success">AI</h2>
+                <p class="text-muted">Powered</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-box">
+                <h2 class="display-4 fw-bold text-warning">Fast</h2>
+                <p class="text-muted">Verification</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-box">
+                <h2 class="display-4 fw-bold text-danger">Trusted</h2>
+                <p class="text-muted">System</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

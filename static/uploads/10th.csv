@@ -1,0 +1,2 @@
+stu_id,name,father_name,mother_name,dob,email,phone,school_name,board,year_of_passing,tamil,english,maths,science,social,total,percentage,grade
+stu1,Abinaya A,Arumugam,Anjali,12/1/2005,abi7@gmail.com,23456789213,"Govt High School, Vadavalli",State Board,2020,95,92,98,96,94,475,95,A+
