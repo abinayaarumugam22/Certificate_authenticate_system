@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Database
+database/*.db
+database/*.sqlite
+
+# Generated certificates
+certificates/generated/
+
+# Uploads
+static/uploads/
+
+# Environment
+.env
